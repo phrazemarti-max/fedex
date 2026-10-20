@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>FedEx Express | Shipment Tracking</title>
+  <meta name="description" content="Shipment tracking and logistics services in Japan.">
+
+  <style>
+    :root {
+      --purple: #4b286d;
+      --purple-dark: #29143d;
+      --orange: #f58220;
+      --bg: #f5f6fa;
+      --white: #ffffff;
+      --text: #282433;
+      --muted: #6b7280;
+      --border: #e5e7eb;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    button, input {
+      font: inherit;
+    }
+
+    .notice {
+      background: #fff0dc;
+      color: #714000;
+      text-align: center;
+      padding: 9px 15px;
+      font-size: 12px;
+    }
+
+    header {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .navbar {
+      max-width: 1150px;
+      margin: auto;
+      padding: 17px 22px;
+      min-height: 78px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: 900;
+      color: var(--purple);
+      letter-spacing: -.7px;
+    }
+
+    .logo span {
+      color: var(--orange);
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    nav a:hover {
+      color: var(--orange);
+    }
+
+    .nav-contact {
+      background: var(--purple);
+      color: white;
+      padding: 10px 15px;
+      border-radius: 5px;
+    }
+
+    .hero {
+      color: white;
+      background:
+        radial-gradient(circle at 85% 15%, #785598, transparent 35%),
+        linear-gradient(120deg, var(--purple-dark), var(--purple));
+      padding: 75px 22px 105px;
+    }
+
+    .hero-inner {
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    .eyebrow {
+      color: #ffc28b;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .hero h1 {
+      max-width: 720px;
+      font-size: clamp(36px, 5vw, 58px);
+      line-height: 1.12;
+      margin: 18px 0;
+    }
+
+    .hero p {
+      max-width: 620px;
+      color: #eee6f5;
+      margin-bottom: 24px;
+    }
+
+    .location {
+      display: inline-block;
+      padding: 8px 13px;
+      background: #ffffff17;
+      border: 1px solid #ffffff30;
+      border-radius: 5px;
+      font-size: 13px;
+    }
+
+    .tracking-section {
+      max-width: 950px;
+      padding: 0 22px;
+      margin: -55px auto 55px;
+      position: relative;
+    }
+
+    .tracking-card {
+      background: white;
+      padding: 32px;
+      border-radius: 12px;
+      box-shadow: 0 12px 40px #20132c15;
+    }
+
+    .tracking-card h2 {
+      font-size: 25px;
+      margin-bottom: 5px;
+    }
+
+    .muted {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .tracking-form {
+      display: flex;
+      gap: 12px;
+      margin-top: 22px;
+    }
+
+    .tracking-form input {
+      flex: 1;
+      min-width: 0;
+      padding: 15px;
+      border: 1px solid #d4d6df;
+      border-radius: 6px;
+      outline: none;
+    }
+
+    .tracking-form input:focus {
+      border-color: var(--purple);
+      box-shadow: 0 0 0 3px #4b286d18;
+    }
+
+    .primary-button {
+      padding: 14px 23px;
+      background: var(--orange);
+      color: #24172c;
+      border: none;
+      border-radius: 6px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .primary-button:disabled {
+      opacity: .6;
+      cursor: wait;
+    }
+
+    .message {
+      display: none;
+      padding: 13px 15px;
+      border-radius: 6px;
+      margin-top: 16px;
+      font-size: 14px;
+      overflow-wrap: anywhere;
+    }
+
+    .message.error {
+      display: block;
+      background: #fff0ef;
+      color: #a12620;
+    }
+
+    .message.info {
+      display: block;
+      background: #f0ecf8;
+      color: var(--purple);
+    }
+
+    .message.success {
+      display: block;
+      background: #e8f7ef;
+      color: #11683e;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: auto;
+      padding: 0 22px 60px;
+    }
+
+    .section-heading {
+      font-size: 29px;
+      margin-bottom: 8px;
+    }
+
+    .section-intro {
+      max-width: 650px;
+      color: var(--muted);
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin: 27px 0 60px;
+    }
+
+    .feature {
+      padding: 26px;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+    }
+
+    .feature-icon {
+      font-size: 30px;
+      margin-bottom: 10px;
+    }
+
+    .feature h3 {
+      font-size: 17px;
+      margin-bottom: 8px;
+    }
+
+    .feature p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    #trackingResults {
+      display: none;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px;
+      margin-bottom: 55px;
+    }
+
+    .results-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 15px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .results-heading h2 {
+      overflow-wrap: anywhere;
+    }
+
+    .status-badge {
+      background: #eee8f5;
+      color: var(--purple);
+      padding: 6px 12px;
+      border-radius: 30px;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .results-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+      margin-top: 24px;
+    }
+
+    .detail-box {
+      background: #f8f8fb;
+      border-radius: 8px;
+      padding: 20px;
+      min-width: 0;
+    }
+
+    .detail-box h3 {
+      margin-bottom: 13px;
+      font-size: 17px;
+    }
+
+    .detail-line {
+      margin: 10px 0;
+      font-size: 14px;
+      overflow-wrap: anywhere;
+    }
+
+    .history-event {
+      display: flex;
+      gap: 12px;
+      padding-bottom: 22px;
+    }
+
+    .history-dot {
+      flex: 0 0 15px;
+      width: 15px;
+      height: 15px;
+      margin-top: 4px;
+      border: 3px solid #dcd0eb;
+      border-radius: 50%;
+      background: var(--purple);
+    }
+
+    .history-event h4 {
+      font-size: 14px;
+    }
+
+    .history-event p {
+      font-size: 13px;
+      color: var(--muted);
+      overflow-wrap: anywhere;
+    }
+
+    .contact {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 32px;
+    }
+
+    .contact a {
+      color: var(--purple);
+      font-weight: 700;
+      overflow-wrap: anywhere;
+    }
+
+    footer {
+      background: #21152e;
+      color: white;
+      text-align: center;
+      padding: 35px 22px;
+      font-size: 13px;
+    }
+
+    footer p {
+      color: #ded5e7;
+      margin-top: 7px;
+    }
+
+    footer a {
+      color: #ffc28b;
+    }
+
+    @media (max-width: 720px) {
+      .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      nav {
+        gap: 14px;
+      }
+
+      .hero {
+        padding-top: 52px;
+      }
+
+      .tracking-card {
+        padding: 22px;
+      }
+
+      .tracking-form {
+        flex-direction: column;
+      }
+
+      .tracking-form button {
+        width: 100%;
+      }
+
+      .features, .results-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="notice">
+    Independent shipping company · Japan
+  </div>
+
+  <header>
+    <div class="navbar">
+      <a href="#home" class="logo">
+        FedEx <span>Express</span>
+      </a>
+
+      <nav aria-label="Main navigation">
+        <a href="#home">Home</a>
+        <a href="#track">Track Shipment</a>
+        <a href="#services">Services</a>
+        <a href="#contact" class="nav-contact">Contact Us</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero" id="home">
+    <div class="hero-inner">
+      <div class="eyebrow">Shipping and logistics · Japan</div>
+
+      <h1>Moving your world, one shipment at a time.</h1>
+
+      <p>
+        Track shipments using information recorded by our
+        shipping team. Check the latest recorded status,
+        location, and shipment history.
+      </p>
+
+      <span class="location">📍 Japan</span>
+    </div>
+  </section>
+
+  <section class="tracking-section" id="track">
+    <div class="tracking-card">
+      <h2>Track your shipment</h2>
+
+      <p class="muted">
+        Enter the tracking number provided by our shipping team.
+      </p>
+
+      <form class="tracking-form" id="trackingForm">
+        <input
+          id="trackingNumber"
+          name="trackingNumber"
+          type="text"
+          placeholder="Enter tracking number"
+          autocomplete="off"
+          aria-label="Shipment tracking number"
+          required
+        >
+
+        <button
+          class="primary-button"
+          id="trackButton"
+          type="submit"
+        >
+          Track Shipment →
+        </button>
+      </form>
+
+      <div id="trackingMessage"
+           class="message"
+           role="status"
+           aria-live="polite"></div>
+    </div>
+  </section>
+
+  <main>
+    <section id="trackingResults" aria-live="polite">
+      <div class="results-heading">
+        <div>
+          <p class="muted">Tracking number</p>
+          <h2 id="resultNumber"></h2>
+        </div>
+
+        <span class="status-badge" id="resultStatus"></span>
+      </div>
+
+      <div class="results-grid">
+        <div class="detail-box">
+          <h3>Shipment details</h3>
+
+          <div class="detail-line">
+            <strong>Origin:</strong>
+            <span id="resultOrigin"></span>
+          </div>
+
+          <div class="detail-line">
+            <strong>Destination:</strong>
+            <span id="resultDestination"></span>
+          </div>
+
+          <div class="detail-line">
+            <strong>Current location:</strong>
+            <span id="resultLocation"></span>
+          </div>
+
+          <div class="detail-line">
+            <strong>Estimated delivery:</strong>
+            <span id="resultDelivery"></span>
+          </div>
+        </div>
+
+        <div class="detail-box">
+          <h3>Shipment history</h3>
+          <div id="resultHistory"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="services">
+      <h2 class="section-heading">Shipping services</h2>
+
+      <p class="section-intro">
+        Shipment management and logistics services for
+        customers shipping with our independent company.
+      </p>
+
+      <div class="features">
+        <article class="feature">
+          <div class="feature-icon">📦</div>
+          <h3>Parcel Shipping</h3>
+          <p>
+            Manage shipment information and provide customers
+            with their assigned tracking numbers.
+          </p>
+        </article>
+
+        <article class="feature">
+          <div class="feature-icon">🌏</div>
+          <h3>International Logistics</h3>
+          <p>
+            Record the origin, destination, and actual transit
+            events for shipments your company handles.
+          </p>
+        </article>
+
+        <article class="feature">
+          <div class="feature-icon">📍</div>
+          <h3>Shipment Tracking</h3>
+          <p>
+            Let customers view recorded shipment events
+            and delivery updates.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="contact" id="contact">
+      <h2 class="section-heading">Contact our team</h2>
+
+      <p class="section-intro">
+        For shipment enquiries, contact us by email.
+      </p>
+
+      <p style="margin-top: 18px;">
+        <strong>Location:</strong> Japan
+      </p>
+
+      <p style="margin-top: 10px;">
+        <strong>Email:</strong>
+        <a href="mailto:osakagiveaway57@gmail.com">
+          osakagiveaway57@gmail.com
+        </a>
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <strong>FedEx Express</strong>
+    <p>Independent shipping company · Japan</p>
+    <p>
+      <a href="mailto:osakagiveaway57@gmail.com">
+        osakagiveaway57@gmail.com
+      </a>
+    </p>
+    <p>© <span id="currentYear"></span> FedEx Express.</p>
+  </footer>
+
+  <script>
+    /*
+      BACKEND CONNECTION
+
+      After deploying your Flask backend, put its base URL below.
+
+      Example:
+      const API_BASE = "https://your-backend.onrender.com";
+
+      Required endpoint:
+      GET /api/track/<tracking_number>
+
+      The backend must return actual shipment records from
+      your database. This page does not invent tracking events.
+    */
+
+    const API_BASE = "";
+
+    const form = document.getElementById("trackingForm");
+    const input = document.getElementById("trackingNumber");
+    const button = document.getElementById("trackButton");
+    const message = document.getElementById("trackingMessage");
+    const results = document.getElementById("trackingResults");
+
+    document.getElementById("currentYear").textContent =
+      new Date().getFullYear();
+
+    function showMessage(text, type) {
+      message.textContent = text;
+      message.className = "message " + type;
+    }
+
+    function addTextElement(parent, tag, className, text) {
+      const element = document.createElement(tag);
+
+      if (className) {
+        element.className = className;
+      }
+
+      element.textContent = text;
+      parent.appendChild(element);
+
+      return element;
+    }
+
+    function renderShipment(shipment) {
+      document.getElementById("resultNumber").textContent =
+        shipment.tracking_number;
+
+      document.getElementById("resultStatus").textContent =
+        shipment.status;
+
+      document.getElementById("resultOrigin").textContent =
+        shipment.origin || "Not available";
+
+      document.getElementById("resultDestination").textContent =
+        shipment.destination || "Not available";
+
+      document.getElementById("resultLocation").textContent =
+        shipment.current_location || "Not available";
+
+      document.getElementById("resultDelivery").textContent =
+        shipment.estimated_delivery || "Not provided";
+
+      const history = document.getElementById("resultHistory");
+      history.replaceChildren();
+
+      if (!Array.isArray(shipment.events) ||
+          shipment.events.length === 0) {
+        addTextElement(
+          history,
+          "p",
+          "muted",
+          "No shipment updates have been recorded."
+        );
+      } else {
+        shipment.events.forEach(function (event) {
+          const row = document.createElement("div");
+          row.className = "history-event";
+
+          const dot = document.createElement("div");
+          dot.className = "history-dot";
+
+          const details = document.createElement("div");
+
+          addTextElement(
+            details,
+            "h4",
+            "",
+            event.status || "Shipment update"
+          );
+
+          addTextElement(
+            details,
+            "p",
+            "",
+            event.location || "Location not recorded"
+          );
+
+          addTextElement(
+            details,
+            "p",
+            "",
+            event.timestamp
+              ? new Date(event.timestamp).toLocaleString()
+              : "Time not provided"
+          );
+
+          if (event.description) {
+            addTextElement(
+              details,
+              "p",
+              "",
+              event.description
+            );
+          }
+
+          row.append(dot, details);
+          history.appendChild(row);
+        });
+      }
+
+      results.style.display = "block";
+      results.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+    }
+
+    form.addEventListener("submit", async function (event) {
+      event.preventDefault();
+
+      const trackingNumber = input.value.trim();
+
+      if (!trackingNumber) {
+        showMessage("Please enter a tracking number.", "error");
+        return;
+      }
+
+      if (!API_BASE) {
+        results.style.display = "none";
+
+        showMessage(
+          "The tracking service has not been connected yet. Please try again after the company tracking backend is configured.",
+          "info"
+        );
+
+        return;
+      }
+
+      button.disabled = true;
+      button.textContent = "Searching...";
+      results.style.display = "none";
+      message.className = "message";
+
+      try {
+        const base = API_BASE.replace(/\/$/, "");
+
+        const response = await fetch(
+          base + "/api/track/" +
+          encodeURIComponent(trackingNumber),
+          {
+            method: "GET",
+            headers: {
+              "Accept": "application/json"
+            }
+          }
+        );
+
+        if (response.status === 404) {
+          showMessage(
+            "Tracking number not found. Check the number and try again.",
+            "error"
+          );
+          return;
+        }
+
+        if (!response.ok) {
+          throw new Error("Tracking service error");
+        }
+
+        const shipment = await response.json();
+
+        if (!shipment.tracking_number || !shipment.status) {
+          throw new Error("Invalid tracking response");
+        }
+
+        renderShipment(shipment);
+
+        showMessage(
+          "Shipment records retrieved successfully.",
+          "success"
+        );
+
+      } catch (error) {
+        showMessage(
+          "Unable to connect to the tracking service. Please try again later.",
+          "error"
+        );
+      } finally {
+        button.disabled = false;
+        button.textContent = "Track Shipment →";
+      }
+    });
+  </script>
+</body>
+</html>
